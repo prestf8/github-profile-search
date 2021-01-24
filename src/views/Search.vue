@@ -1,5 +1,6 @@
 <template>
   <div class="search h-100 text-center" style="padding: 8rem;">
+    <LinkToGithub></LinkToGithub>
     <main class="search-main-content mx-auto w-100" style="maxWidth: 400px;">
       <h3 class="search-title mb-4">Enter Github Username</h3>
       <form class="d-flex justify-content-center">
@@ -12,8 +13,10 @@
 
 <script>
 // @ is an alias to /src
+import LinkToGithub from "@/components/LinkToGithub.vue";
 
 export default {
+  components: { LinkToGithub },
   name: "Search",
 };
 </script>
