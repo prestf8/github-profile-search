@@ -8,7 +8,11 @@
       <a
         href="https://github.com/prestf8/github-user-profile-searcher"
         target="_blank"
-        >(Icon) Link to Project</a
+        class="text-decoration-none link link-primary"
+        ><font-awesome-icon
+          :icon="['fab', 'github-square']"
+        ></font-awesome-icon>
+        Link to Project</a
       >
     </li>
   </ul>

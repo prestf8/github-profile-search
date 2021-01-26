@@ -1,7 +1,16 @@
 <template>
   <div class="user">
     <main class="main-content m-auto p-3">
-      <MainProfile></MainProfile>
+      <div class="go-back-container text-center d-block">
+        <router-link class="text-decoration-none" to="/"
+          ><font-awesome-icon
+            :icon="['fas', 'angle-left']"
+            exact
+          ></font-awesome-icon>
+          Back</router-link
+        >
+      </div>
+      <MainProfile class="mt-3"></MainProfile>
       <Bio></Bio>
       <div class="row mt-5">
         <div class="col col-md-6 col-lg-4 mt-3">
@@ -42,11 +51,19 @@ export default {
   text-align: left !important;
 
   width: 95%;
-  max-width: 1150px;
+  max-width: 1300px;
   margin: auto;
 
   @media screen and (min-width: 768px) {
     width: 85%;
+  }
+}
+
+.go-back-container {
+  font-size: 1.2rem;
+
+  @media screen and (min-width: 976px) {
+    font-size: 1.5rem;
   }
 }
 </style>
