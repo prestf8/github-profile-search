@@ -10,8 +10,8 @@
           Back</router-link
         >
       </div>
-      <MainProfile class="mt-3"></MainProfile>
-      <Bio></Bio>
+      <MainProfile class="mt-3" :data="userData"></MainProfile>
+      <Bio :text="userData.bio"></Bio>
       <div class="row mt-5">
         <div class="col col-md-6 col-lg-4 mt-3">
           <StarsRepositories></StarsRepositories>
@@ -33,6 +33,7 @@ import Bio from "../components/Bio.vue";
 import StarsRepositories from "../components/StarsRepositories.vue";
 import ForksRepositories from "../components/ForksRepositories.vue";
 import AverageStats from "../components/AverageStats.vue";
+import { mapState } from "vuex";
 
 export default {
   name: "User",
@@ -42,6 +43,9 @@ export default {
     StarsRepositories,
     ForksRepositories,
     AverageStats,
+  },
+  computed: {
+    ...mapState(["userData"]),
   },
 };
 </script>

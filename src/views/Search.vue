@@ -1,15 +1,25 @@
 <template>
   <div class="search vh-100 text-center" style="padding: 8rem;">
     <LinkToGithub></LinkToGithub>
+    {{ userData }}
+    {{ repoData }}
+
     <main
       v-if="!inFetch"
       class="search-main-content mx-auto w-100"
       style="maxWidth: 400px;"
     >
       <h3 class="search-title mb-4">Enter Github Username</h3>
-      <form class="d-flex justify-content-center">
-        <input type="text" class="form-control w-100" style="maxWidth: 200px" />
-        <button type="submit" class="btn btn-primary">Search</button>
+      <form @submit.prevent="getData" class="d-flex justify-content-center">
+        <input
+          v-model="inputV"
+          type="text"
+          class="form-control w-100"
+          style="maxWidth: 200px"
+        />
+        <button @click.prevent="getData" type="submit" class="btn btn-primary">
+          Search
+        </button>
       </form>
     </main>
     <div v-else class="loading-page mx-auto w-100">
@@ -40,13 +50,82 @@
 // @ is an alias to /src
 import LinkToGithub from "@/components/LinkToGithub.vue";
 
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 
 export default {
   components: { LinkToGithub },
   name: "Search",
+  data() {
+    return {
+      inputV: "",
+    };
+  },
   computed: {
-    ...mapState(["inFetch"]),
+    ...mapState(["inFetch", "userData", "repoData", "input"]),
+  },
+  methods: {
+    ...mapMutations(["setErrorMessage", "toggleInFetch", "setData"]),
+
+    async fetchUserData() {
+      const user = await fetch(`https://api.github.com/users/${this.inputV}`, {
+        headers: {
+          authorization: "token f6dd340c669ff3e929fd3b8523010b2873cf6f55",
+          accept: "application/vnd.github.v3+json",
+        },
+      });
+
+      if (user.ok) {
+        return await user.json();
+      } else {
+        throw new Error("User Not Found");
+      }
+    },
+
+    async fetchRepoData() {
+      const repo = await fetch(
+        `https://api.github.com/users/${this.inputV}/repos`,
+        {
+          headers: {
+            authorization: "token f6dd340c669ff3e929fd3b8523010b2873cf6f55",
+            accept: "application/vnd.github.v3+json",
+          },
+        }
+      );
+
+      if (repo.ok) {
+        return await repo.json();
+      } else {
+        throw new Error("Repo Not Found");
+      }
+    },
+
+    async fetchData() {
+      try {
+        return await Promise.all([this.fetchUserData(), this.fetchRepoData()]);
+      } catch {
+        throw new Error("User Not Found");
+      }
+    },
+    async getData() {
+      try {
+        this.toggleInFetch(); // Toggle On Loading Screen
+        const data = await this.fetchData();
+        const [userData, repoData] = data;
+        await this.setData({ userData, repoData });
+
+
+        this.toggleInFetch(); // Toggle Off Loading Screen
+        await this.$router.replace({
+          path: `/user/${this.inputV}`,
+          name: "User",
+        });
+      } catch (error) {
+        this.toggleInFetch(); // Toggle Off Loading Screen
+        this.setErrorMessage({ errorMessage: error.message });
+        this.$router.replace({ path: "/404", name: "Error" });
+      }
+      this.inputV = "";
+    },
   },
 };
 </script>

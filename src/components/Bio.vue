@@ -5,7 +5,7 @@
     </div>
     <div class="card-body">
       <div class="card-text" id="bio-text">
-        Description Description Description
+        {{ this.text }}
       </div>
     </div>
   </main>
@@ -13,6 +13,9 @@
 <script>
 export default {
   name: "Bio",
+  props: {
+    text: String,
+  },
 };
 </script>
 

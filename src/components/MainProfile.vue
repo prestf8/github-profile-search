@@ -3,7 +3,7 @@
     <div class="container-fluid p-0">
       <div class="row">
         <div class="d-none d-sm-block col-sm-5 col-md-4 col-lg-3">
-          <img src="../assets/test-img.jpg" class="img-fluid" />
+          <img :src="data.avatar_url" class="img-fluid" />
         </div>
         <div class="col-12 col-sm-7 col-md-8 col-lg-9">
           <div
@@ -11,20 +11,22 @@
           >
             <section class="card-body-first-row">
               <h5 class="card-title mb-2" id="title">
-                Username (name)
+                {{ data.login }} ({{ data.name }})
               </h5>
               <p class="card-text mb-1" id="company">
-                Company
+                {{ data.company }}
               </p>
               <p class="card-text mb-1" id="location">
-                location
+                {{ data.location }}
               </p>
             </section>
             <section class="card-body-second-row">
               <p class="card-subtitle mb-1 text-muted" id="joined">
                 Joined x years ago
               </p>
-              <a href="#" class="card-link">Open Profile</a>
+              <a :href="data.html_url" class="card-link" target="_blank"
+                >Open Profile</a
+              >
             </section>
           </div>
         </div>
@@ -36,13 +38,17 @@
         id="extra-info"
       >
         <li class="list-group-item border-md-0" id="followers">
-          Followers(100000)
+          Followers ({{ data.followers }})
         </li>
-        <li class="list-group-item border-md-0" id="following">Following(0)</li>
+        <li class="list-group-item border-md-0" id="following">
+          Following ({{ data.following }})
+        </li>
         <li class="list-group-item border-md-0" id="public-repos">
-          Public Repos(20)
+          Public Repos ({{ data.public_repos }})
         </li>
-        <li class="list-group-item border-md-0" id="plan">Plan(Medium)</li>
+        <li class="list-group-item border-md-0" id="plan">
+          Plan ({{ data.planType }})
+        </li>
       </ul>
     </div>
   </main>
@@ -51,6 +57,9 @@
 <script>
 export default {
   name: "MainProfile",
+  props: {
+    data: Object,
+  },
 };
 </script>
 
