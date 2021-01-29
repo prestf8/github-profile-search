@@ -37,13 +37,13 @@
         class="list-group list-group-flush d-flex flex-column flex-md-row"
         id="extra-info"
       >
-        <li class="list-group-item border-md-0" id="followers">
+        <li class="list-group-item" id="followers">
           Followers ({{ data.followers }})
         </li>
-        <li class="list-group-item border-md-0" id="following">
+        <li class="list-group-item" id="following">
           Following ({{ data.following }})
         </li>
-        <li class="list-group-item border-md-0" id="public-repos">
+        <li class="list-group-item border-bottom" id="public-repos">
           Public Repos ({{ data.public_repos }})
         </li>
       </ul>
@@ -61,6 +61,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.list-group-item {
+  background-color: transparent;
+}
 #title {
   font-size: 1.15rem;
 }

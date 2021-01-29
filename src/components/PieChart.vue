@@ -10,14 +10,12 @@ export default {
     label: {
       type: String,
     },
-    chartData: {
-      type: Object,
-    },
     options: {
       type: Object,
     },
   },
   mounted() {
+    console.log(this.chartData);
     this.renderChart(this.chartData, this.options);
   },
 };

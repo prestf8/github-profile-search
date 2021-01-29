@@ -33,7 +33,6 @@ export default new Vuex.Store({
       state.inFetch = !state.inFetch;
     },
     setData(state, { userData, repoData }) {
-      console.log(userData, repoData);
       // USERDATA:
       // avatar_url
       // bio
@@ -89,10 +88,8 @@ export default new Vuex.Store({
           stars_count: repo.stargazers_count,
         };
       });
-      console.log(state.repoData);
     },
     reset(state) {
-      console.log("did this work");
       Object.assign(state.userData, {
         avatar_url: "",
         bio: "",

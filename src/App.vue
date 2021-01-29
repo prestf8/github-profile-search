@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <router-view />
-    <!-- <div class="app__warning fixed-bottom text-center w-100 p-1">
+    <div class="app__warning fixed-bottom text-center w-100 p-1">
       *Github Api can only collect up to 100 repos per user
-    </div> -->
+    </div>
   </div>
 </template>
 

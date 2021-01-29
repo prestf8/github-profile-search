@@ -18,22 +18,26 @@
       <MainProfile class="mt-3" :data="userData"></MainProfile>
       <Bio :text="userData.bio"></Bio>
       <div class="row mt-5">
-        <div class="col col-md-6 col-lg-4 mt-3">
+        <div class="col-12 col-lg-6 col-xl-4 mt-4">
           <StarsRepositories
             :stars="listOfTopTenStars"
             :names="listOfTopTenStarsNames"
           ></StarsRepositories>
         </div>
-        <div class="col col-md-6 col-lg-4 mt-3">
-          <ForksRepositories :data="firstTenForkRepo"></ForksRepositories>
+        <div class="col-12 col-lg-6 col-xl-4 mt-4">
+          <ForksRepositories
+            :forks="listOfTopTenForks"
+            :names="listOfTopTenForksNames"
+          ></ForksRepositories>
         </div>
-        <div class="col-12 col-lg-4 mt-3">
+        <div class="col-12 col-lg-12 col-xl-4 mt-4">
           <AverageStats
+            class="mx-auto"
             :stars="averageStars"
             :forks="averageForks"
+            style="max-width: 550px"
           ></AverageStats>
         </div>
-        {{ firstTenStarRepo }}
       </div>
     </main>
   </div>
@@ -81,6 +85,12 @@ export default {
     },
     listOfTopTenStarsNames() {
       return this.firstTenStarRepo.map((repo) => repo.name);
+    },
+    listOfTopTenForks() {
+      return this.firstTenForkRepo.map((repo) => repo.forks_count);
+    },
+    listOfTopTenForksNames() {
+      return this.firstTenForkRepo.map((repo) => repo.name);
     },
   },
   methods: {

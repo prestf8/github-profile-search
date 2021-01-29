@@ -6,7 +6,9 @@
       </div>
       <div class="card-body">
         <div class="list-group">
-          <div class="list-group-item">
+          <div
+            class="list-group-item list-group-item-warning list-group-item-action"
+          >
             <font-awesome-icon
               :icon="['fas', 'star']"
               class="d-inline-block"
@@ -14,7 +16,9 @@
             ></font-awesome-icon>
             {{ this.stars }}
           </div>
-          <div class="list-group-item bg-primary">
+          <div
+            class="list-group-item list-group-item-info list-group-item-action"
+          >
             <font-awesome-icon
               :icon="['fas', 'code-branch']"
               class="d-inline-block"
