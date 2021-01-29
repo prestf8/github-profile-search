@@ -1,3 +1,3 @@
 module.exports = {
-    publicPath: 'github-profile-search';
-}
+  publicPath: "github-profile-search",
+};
