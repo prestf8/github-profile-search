@@ -2,26 +2,38 @@
   <div class="user">
     <main class="main-content m-auto p-3">
       <div class="go-back-container text-center d-block">
-        <router-link class="text-decoration-none" to="/"
-          ><font-awesome-icon
-            :icon="['fas', 'angle-left']"
-            exact
-          ></font-awesome-icon>
-          Back</router-link
-        >
+        <button class="btn p-0" @click="reset">
+          <router-link
+            @click="reset"
+            class="text-decoration-none d-block p-1"
+            to="/"
+            ><font-awesome-icon
+              :icon="['fas', 'angle-left']"
+              exact
+            ></font-awesome-icon>
+            Back</router-link
+          >
+        </button>
       </div>
       <MainProfile class="mt-3" :data="userData"></MainProfile>
       <Bio :text="userData.bio"></Bio>
       <div class="row mt-5">
         <div class="col col-md-6 col-lg-4 mt-3">
-          <StarsRepositories></StarsRepositories>
+          <StarsRepositories
+            :stars="listOfTopTenStars"
+            :names="listOfTopTenStarsNames"
+          ></StarsRepositories>
         </div>
         <div class="col col-md-6 col-lg-4 mt-3">
-          <ForksRepositories></ForksRepositories>
+          <ForksRepositories :data="firstTenForkRepo"></ForksRepositories>
         </div>
         <div class="col-12 col-lg-4 mt-3">
-          <AverageStats></AverageStats>
+          <AverageStats
+            :stars="averageStars"
+            :forks="averageForks"
+          ></AverageStats>
         </div>
+        {{ firstTenStarRepo }}
       </div>
     </main>
   </div>
@@ -33,10 +45,16 @@ import Bio from "../components/Bio.vue";
 import StarsRepositories from "../components/StarsRepositories.vue";
 import ForksRepositories from "../components/ForksRepositories.vue";
 import AverageStats from "../components/AverageStats.vue";
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 
 export default {
   name: "User",
+  data() {
+    return {
+      firstTenStarRepo: [],
+      firstTenForkRepo: [],
+    };
+  },
   components: {
     MainProfile,
     Bio,
@@ -45,7 +63,44 @@ export default {
     AverageStats,
   },
   computed: {
-    ...mapState(["userData"]),
+    ...mapState(["userData", "repoData"]),
+
+    averageStars() {
+      let total = 0;
+      this.repoData.forEach((repo) => (total += repo.stars_count));
+      return (total / this.repoData.length).toFixed(2);
+    },
+    averageForks() {
+      let total = 0;
+      this.repoData.forEach((repo) => (total += repo.forks_count));
+      return (total / this.repoData.length).toFixed(2);
+    },
+
+    listOfTopTenStars() {
+      return this.firstTenStarRepo.map((repo) => repo.stars_count);
+    },
+    listOfTopTenStarsNames() {
+      return this.firstTenStarRepo.map((repo) => repo.name);
+    },
+  },
+  methods: {
+    ...mapMutations(["reset"]),
+    setFirstTenStarRepo() {
+      let sortedData = this.repoData;
+      this.firstTenStarRepo = sortedData
+        .sort((a, b) => (a.stars_count > b.stars_count ? -1 : 1))
+        .slice(0, 10);
+    },
+    setFirstTenForkRepo() {
+      let sortedData = this.repoData;
+      this.firstTenForkRepo = sortedData
+        .sort((a, b) => (a.forks_count > b.forks_count ? -1 : 1))
+        .slice(0, 10);
+    },
+  },
+  mounted() {
+    this.setFirstTenStarRepo();
+    this.setFirstTenForkRepo();
   },
 };
 </script>

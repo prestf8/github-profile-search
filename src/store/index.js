@@ -19,11 +19,10 @@ export default new Vuex.Store({
       html_url: "",
       location: "",
       login: "",
-      name: "",
-      planType: "",
+      actualName: "",
       public_repos: 0,
     },
-    repoData: {},
+    repoData: [],
     errorMessage: "",
   },
   mutations: {
@@ -59,12 +58,11 @@ export default new Vuex.Store({
         html_url,
         location,
         login,
-        name,
-        plan: { name: planType },
+        name: actualName,
         public_repos,
       } = userData;
 
-      state.userData = {
+      Object.assign(state.userData, {
         avatar_url,
         bio,
         company,
@@ -74,10 +72,9 @@ export default new Vuex.Store({
         html_url,
         location,
         login,
-        name,
-        planType,
+        actualName,
         public_repos,
-      };
+      });
 
       for (const property in state.userData) {
         if (state.userData[property] === null) {
@@ -85,7 +82,32 @@ export default new Vuex.Store({
         }
       }
 
-      alert(repoData);
+      state.repoData = repoData.map((repo) => {
+        return {
+          name: repo.name,
+          forks_count: repo.forks_count,
+          stars_count: repo.stargazers_count,
+        };
+      });
+      console.log(state.repoData);
+    },
+    reset(state) {
+      console.log("did this work");
+      Object.assign(state.userData, {
+        avatar_url: "",
+        bio: "",
+        company: "",
+        created_at: "",
+        followers: 0,
+        following: 0,
+        html_url: "",
+        location: "",
+        login: "",
+        actualName: "",
+        public_repos: 0,
+      });
+
+      state.repoData = [];
     },
   },
   modules: {},

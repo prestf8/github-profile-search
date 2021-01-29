@@ -12,7 +12,7 @@
               class="d-inline-block"
               style="height: 16px; width: 16px"
             ></font-awesome-icon>
-            00
+            {{ this.stars }}
           </div>
           <div class="list-group-item bg-primary">
             <font-awesome-icon
@@ -20,7 +20,7 @@
               class="d-inline-block"
               style="height: 16px; width: 16px"
             ></font-awesome-icon>
-            01
+            {{ this.forks }}
           </div>
         </div>
       </div>
@@ -31,6 +31,10 @@
 <script>
 export default {
   name: "AverageStats",
+  props: {
+    stars: String,
+    forks: String,
+  },
 };
 </script>
 

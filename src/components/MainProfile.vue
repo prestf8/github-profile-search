@@ -11,7 +11,7 @@
           >
             <section class="card-body-first-row">
               <h5 class="card-title mb-2" id="title">
-                {{ data.login }} ({{ data.name }})
+                {{ data.login }} ({{ data.actualName }})
               </h5>
               <p class="card-text mb-1" id="company">
                 {{ data.company }}
@@ -45,9 +45,6 @@
         </li>
         <li class="list-group-item border-md-0" id="public-repos">
           Public Repos ({{ data.public_repos }})
-        </li>
-        <li class="list-group-item border-md-0" id="plan">
-          Plan ({{ data.planType }})
         </li>
       </ul>
     </div>

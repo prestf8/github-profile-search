@@ -1,13 +1,15 @@
 <template>
   <div class="error vh-100 p-4">
     <div class="go-back-container text-center d-block mb-5">
-      <router-link class="text-decoration-none" to="/"
-        ><font-awesome-icon
-          :icon="['fas', 'angle-left']"
-          exact
-        ></font-awesome-icon>
-        Back</router-link
-      >
+      <button class="btn p-0" @click="reset">
+        <router-link class="text-decoration-none d-block  p-1" to="/"
+          ><font-awesome-icon
+            :icon="['fas', 'angle-left']"
+            exact
+          ></font-awesome-icon>
+          Back</router-link
+        >
+      </button>
     </div>
     <span class="loading-page-text m-auto d-block text-center">{{
       errorMessage
@@ -15,12 +17,15 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
   name: "Error",
 
   computed: {
     ...mapState(["errorMessage"]),
+  },
+  methods: {
+    ...mapMutations(["reset"]),
   },
 };
 </script>

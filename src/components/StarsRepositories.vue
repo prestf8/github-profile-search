@@ -5,6 +5,9 @@
       :options="options"
       label="Stars"
     ></pie-chart>
+    {{ this.stars }}
+
+    {{ this.names }}
   </div>
 </template>
 
@@ -15,6 +18,10 @@ export default {
   name: "StarsRepositories",
   components: {
     PieChart,
+  },
+  props: {
+    stars: Array,
+    names: Array,
   },
   data() {
     return {
@@ -29,16 +36,22 @@ export default {
         },
       },
       chartData: {
-        labels: ["Green", "Red", "Blue"],
+        labels: [],
+        // labels: ["Green", "Red", "Blue"],
         datasets: [
           {
             label: "Data One",
-            backgroundColor: ["#41B883", "#E46651", "#00D8FF"],
-            data: [3, 10, 5],
+            // backgroundColor: ["#41B883", "#E46651", "#00D8FF"],
+            data: [],
+            // data: [1, 2, 3],
           },
         ],
       },
     };
+  },
+  mounted() {
+    this.chartData.labels = this.names;
+    this.chartData.datasets[0].data = this.stars;
   },
 };
 </script>

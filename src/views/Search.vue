@@ -1,8 +1,6 @@
 <template>
   <div class="search vh-100 text-center" style="padding: 8rem;">
     <LinkToGithub></LinkToGithub>
-    {{ userData }}
-    {{ repoData }}
 
     <main
       v-if="!inFetch"
@@ -61,7 +59,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["inFetch", "userData", "repoData", "input"]),
+    ...mapState(["inFetch"]),
   },
   methods: {
     ...mapMutations(["setErrorMessage", "toggleInFetch", "setData"]),
@@ -83,7 +81,7 @@ export default {
 
     async fetchRepoData() {
       const repo = await fetch(
-        `https://api.github.com/users/${this.inputV}/repos`,
+        `https://api.github.com/users/${this.inputV}/repos?per_page=100`,
         {
           headers: {
             authorization: "token f6dd340c669ff3e929fd3b8523010b2873cf6f55",
@@ -113,16 +111,18 @@ export default {
         const [userData, repoData] = data;
         await this.setData({ userData, repoData });
 
-
         this.toggleInFetch(); // Toggle Off Loading Screen
+        // await this.$router.replace({
+        //   path: `/user/${this.inputV}`,
+        //   name: "User",
+        // });
         await this.$router.replace({
-          path: `/user/${this.inputV}`,
-          name: "User",
+          path: "/user",
         });
       } catch (error) {
         this.toggleInFetch(); // Toggle Off Loading Screen
         this.setErrorMessage({ errorMessage: error.message });
-        this.$router.replace({ path: "/404", name: "Error" });
+        this.$router.replace({ path: "/404" });
       }
       this.inputV = "";
     },
