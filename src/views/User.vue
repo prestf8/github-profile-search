@@ -22,15 +22,17 @@
           <StarsRepositories
             :stars="listOfTopTenStars"
             :names="listOfTopTenStarsNames"
+            :noZero="starsIsntZero"
           ></StarsRepositories>
         </div>
         <div class="col-12 col-lg-6 col-xl-4 mt-4">
           <ForksRepositories
             :forks="listOfTopTenForks"
             :names="listOfTopTenForksNames"
+            :noZero="forksIsntZero"
           ></ForksRepositories>
         </div>
-        <div class="col-12 col-lg-12 col-xl-4 mt-4">
+        <div class="col-12 col-lg-12 col-xl-4 mt-3 mb-5">
           <AverageStats
             class="mx-auto"
             :stars="averageStars"
@@ -57,6 +59,8 @@ export default {
     return {
       firstTenStarRepo: [],
       firstTenForkRepo: [],
+      // displayStarsG: true,
+      // displayForksG: true,
     };
   },
   components: {
@@ -91,6 +95,18 @@ export default {
     },
     listOfTopTenForksNames() {
       return this.firstTenForkRepo.map((repo) => repo.name);
+    },
+    starsIsntZero() {
+      if (this.listOfTopTenStars.every((number) => number === 0)) {
+        return false;
+      }
+      return true;
+    },
+    forksIsntZero() {
+      if (this.listOfTopTenForks.every((number) => number === 0)) {
+        return false;
+      }
+      return true;
     },
   },
   methods: {

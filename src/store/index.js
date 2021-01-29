@@ -8,6 +8,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    authenticated: false,
     inFetch: false,
     userData: {
       avatar_url: "",
@@ -105,6 +106,10 @@ export default new Vuex.Store({
       });
 
       state.repoData = [];
+      state.authenticated = false;
+    },
+    toggleAuthentication(state) {
+      state.authenticated = !state.authenticated;
     },
   },
   modules: {},

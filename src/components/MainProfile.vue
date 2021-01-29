@@ -22,7 +22,7 @@
             </section>
             <section class="card-body-second-row">
               <p class="card-subtitle mb-1 text-muted" id="joined">
-                Joined x years ago
+                {{ this.fromNow }}
               </p>
               <a :href="data.html_url" class="card-link" target="_blank"
                 >Open Profile</a
@@ -52,10 +52,18 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   name: "MainProfile",
   props: {
     data: Object,
+  },
+
+  computed: {
+    fromNow() {
+      return "Joined " + moment(this.data.created_at).fromNow();
+    },
   },
 };
 </script>

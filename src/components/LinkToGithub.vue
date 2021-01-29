@@ -1,5 +1,5 @@
 <template>
-  <ul class="link-to-github list-group bg-success">
+  <ul class="link-to-github list-group">
     <li
       class="list-group-item position-absolute border-0"
       id="github-link"
@@ -14,6 +14,12 @@
         ></font-awesome-icon>
         Link to Project</a
       >
+    </li>
+    <li
+      class="list-group-item position-absolute mt-4 border-0"
+      style="top:0;right:10px; font-size: 1.5rem; background: transparent;"
+    >
+      v1
     </li>
   </ul>
 </template>

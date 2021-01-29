@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Search from "../views/Search.vue";
 import User from "../views/User.vue";
 import Error from "../views/Error.vue";
+import store from "../store/index.js";
 
 Vue.use(VueRouter);
 
@@ -13,7 +14,7 @@ const routes = [
     component: Search,
   },
   {
-    path: "/user",
+    path: "/user/:id",
     name: "User",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -31,6 +32,14 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.name === "User" && !store.state.authenticated) {
+    next({ name: "Search" });
+  } else {
+    next();
+  }
 });
 
 export default router;

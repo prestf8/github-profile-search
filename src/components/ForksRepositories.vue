@@ -1,7 +1,7 @@
 <template>
   <div class="forks-repositories">
     <pie-chart
-      v-if="loaded"
+      v-if="loaded && noZero"
       :chartData="chartData"
       :options="options"
       label="Forks"
@@ -20,6 +20,7 @@ export default {
   props: {
     forks: Array,
     names: Array,
+    noZero: Boolean,
   },
   watch: {
     forks() {

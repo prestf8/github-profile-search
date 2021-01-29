@@ -1,7 +1,7 @@
 <template>
   <div class="stars-repositories">
     <pie-chart
-      v-if="loaded"
+      v-if="loaded && noZero"
       :chartData="chartData"
       :options="options"
       label="Stars"
@@ -21,6 +21,7 @@ export default {
   props: {
     stars: Array,
     names: Array,
+    noZero: Boolean,
   },
   watch: {
     stars() {

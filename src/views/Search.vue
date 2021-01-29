@@ -1,20 +1,18 @@
 <template>
-  <div class="search vh-100 text-center" style="padding: 8rem;">
+  <div
+    class="search vh-100 text-center"
+    style="padding-top: 9rem; padding-left: 0.5rem; padding-right: 0.5rem;"
+  >
     <LinkToGithub></LinkToGithub>
 
     <main
       v-if="!inFetch"
       class="search-main-content mx-auto w-100"
-      style="maxWidth: 400px;"
+      style="maxWidth: 400px; minWidth: 220px;"
     >
       <h3 class="search-title mb-4">Enter Github Username</h3>
       <form @submit.prevent="getData" class="d-flex justify-content-center">
-        <input
-          v-model="inputV"
-          type="text"
-          class="form-control w-100"
-          style="maxWidth: 200px"
-        />
+        <input v-model="inputV" type="text" class="form-control w-100" />
         <button @click.prevent="getData" type="submit" class="btn btn-primary">
           Search
         </button>
@@ -62,7 +60,12 @@ export default {
     ...mapState(["inFetch"]),
   },
   methods: {
-    ...mapMutations(["setErrorMessage", "toggleInFetch", "setData"]),
+    ...mapMutations([
+      "setErrorMessage",
+      "toggleInFetch",
+      "setData",
+      "toggleAuthentication",
+    ]),
 
     async fetchUserData() {
       const user = await fetch(`https://api.github.com/users/${this.inputV}`, {
@@ -116,9 +119,14 @@ export default {
         //   path: `/user/${this.inputV}`,
         //   name: "User",
         // });
+        this.toggleAuthentication(); // Toggles Authentication (from Store)
         await this.$router.replace({
-          path: "/user",
+          name: "User",
+          params: {
+            id: this.inputV,
+          },
         });
+        this.toggleAuthentication(); // Toggles Authentication (from Store)
       } catch (error) {
         this.toggleInFetch(); // Toggle Off Loading Screen
         this.setErrorMessage({ errorMessage: error.message });
