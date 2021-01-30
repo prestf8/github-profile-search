@@ -9,12 +9,12 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: "/github-profile-search",
     name: "Search",
     component: Search,
   },
   {
-    path: "/user/:id",
+    path: "/github-profile-search/user/:id",
     name: "User",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -22,7 +22,7 @@ const routes = [
     component: User,
   },
   {
-    path: "/404",
+    path: "/github-profile-search/404",
     name: "Error",
     component: Error,
   },
