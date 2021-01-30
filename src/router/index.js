@@ -9,7 +9,7 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/github-profile-search",
+    path: "/github-profile-search/",
     name: "Search",
     component: Search,
   },

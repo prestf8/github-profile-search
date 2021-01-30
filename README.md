@@ -1,24 +1,7 @@
 # profile-searcher-github
 
-## Project setup
-```
-yarn install
-```
+# 1/29/2021
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- Rate Limit is 5000 requests / hour?
+- Don't spam request
+- Bootstrap and Vue
